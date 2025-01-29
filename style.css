@@ -274,6 +274,7 @@ video{
         font-weight: 400;
         line-height: normal;
         cursor: pointer;
+        overflow-y: hidden;
     }
     .dash{
         width: 70%;
