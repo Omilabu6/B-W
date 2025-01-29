@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-triggered Animation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 200vh; /* For scroll testing */
+    }
+
+    .animate-item {
+      margin: 100px 0;
+      padding: 50px;
+      background-color: lightblue;
+      text-align: center;
+      font-size: 24px;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.3s ease; /* Smooth transition for visibility */
+    }
+  </style>
+</head>
+<body>
+  <div class="animate-item">Scroll to see me animate!</div>
+  <br><br><br><br><br><br><br><br><br>
+  <div class="animate-item">Another section to animate!</div>
+
+  <script>
+        // Select all elements with the class 'animate-item' that need to be animated
+        const animateItems = document.querySelectorAll('.animate-item');
+
+        // Define options for the Intersection Observer
+        const observerOptions = {
+        root: null, // Use the browser's viewport as the root (default behavior)
+        threshold: 0.5, // Trigger when at least 50% of the element is visible
+        };
+
+        // Create a new Intersection Observer instance
+        const observer = new IntersectionObserver((entries) => {
+        // 'entries' is an array of elements being observed with their visibility status
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+            // If the element is in view:
+            // 1. Add Animate.css animation classes to the element
+            entry.target.classList.add('animate__animated', 'animate__fadeIn');
+            // 2. Set opacity to 1 to make the element visible
+            entry.target.style.opacity = 1;
+            } else {
+            // If the element is out of view:
+            // 1. Remove the Animate.css animation classes
+            entry.target.classList.remove('animate__animated', 'animate__fadeIn');
+            // 2. Reset opacity to 0 to hide the element
+            entry.target.style.opacity = 0;
+            }
+        });
+        }, observerOptions);
+
+        // Attach the Intersection Observer to each element in 'animateItems'
+        animateItems.forEach((item) => observer.observe(item));
+   </script>
+</body>
+</html>
