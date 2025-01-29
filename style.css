@@ -253,7 +253,7 @@ video{
         display: flex;
         justify-content: space-between;
         width: 65%;
-       
+       overflow: hidden;
     
     }
     .flex h3{
